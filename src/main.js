@@ -22,32 +22,24 @@ window.addEventListener("DOMContentLoaded", () => {
 */
 
 async function mygetpos() {
-  divOben.innerHTML = await invoke("get_position", {});
+  const positionJson = await invoke("get_position", {});
+  const positionObj = JSON.parse(positionJson);
+
+  const table = document.querySelector('#AufPos tbody');
+  let html = '';
+
+  positionObj.forEach(item => {
+    html += `
+      <tr>
+        <td>${item.position}</td>
+        <td>${item.artikel}</td>
+        <td>${item.menge}</td>
+        <td>${item.preis.netto}</td>
+      </tr>
+    `;
+  });
+
+  table.innerHTML = html;
 }
 
-divOben = document.querySelector("#top-div");
 mygetpos();
-
-// Tabelle mit Positionen füllen
-const table = document.querySelector('#AufPos tbody');
-const data = [
-  { id: 1, firstName: 'John', lastName: 'Doe', age: 20 },
-  { id: 2, firstName: 'Jane', lastName: 'Doe', age: 19 },
-  { id: 3, firstName: 'John', lastName: 'Smith', age: 21 },
-  { id: 4, firstName: 'Sarah', lastName: 'Johnson', age: 22 },
-];
-
-let html = '';
-
-data.forEach(item => {
-  html += `
-    <tr>
-      <td>${item.id}</td>
-      <td>${item.firstName}</td>
-      <td>${item.lastName}</td>
-      <td>${item.age}</td>
-    </tr>
-  `;
-});
-
-table.innerHTML = html;

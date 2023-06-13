@@ -15,21 +15,14 @@ fn greet(name: &str) -> String {
 #[tauri::command]
 fn get_position () -> String {
     let mut auftrags_positionen: Vec<AuftragsPosition> = Vec::new();
-    auftrags_positionen.push(AuftragsPosition {
-        artikel: "Artikel 1".to_string(),
-        menge: 1,
-        preis: 1.0,
-    });
-    auftrags_positionen.push(AuftragsPosition {
-        artikel: "Artikel 2".to_string(),
-        menge: 2,
-        preis: 2.0,
-    });
-    auftrags_positionen.push(AuftragsPosition {
-        artikel: "Artikel 3".to_string(),
-        menge: 3,
-        preis: 3.0,
-    });
+    for i in 1..=10 {
+        auftrags_positionen.push(AuftragsPosition {
+            position: i,
+            artikel: format!("Artikel {}", i),
+            menge: i,
+            preis: Preis::new(i as f32 * 10.0, i as f32 * 11.0, i as f32 * 1.0),
+        });
+    }
     let json = serde_json::to_string(&auftrags_positionen).unwrap();
     format!("{}", json)
 }
@@ -43,7 +36,25 @@ fn main() {
 
 #[derive(Serialize, Deserialize)]
 struct AuftragsPosition {
+    position: i32,
     artikel: String,
     menge: i32,
-    preis: f32,
+    preis: Preis,
+}
+
+#[derive(Serialize, Deserialize)]
+struct Preis {
+    netto: f32,
+    brutto: f32,
+    mwst: f32,
+}
+
+impl Preis {
+    fn new(netto: f32, brutto: f32, mwst: f32) -> Preis {
+        Preis {
+            netto,
+            brutto,
+            mwst,
+        }
+    }
 }
