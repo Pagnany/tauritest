@@ -98,9 +98,14 @@ body {
 
 #AufPos {
   border-collapse: collapse;
+  color: #f6f6f6;
 }
 
 #AufPos td, #AufPos th {
-  border: 1px solid black;
+  border: 1px solid white;
   padding: 8px;
+}
+
+.selected {
+  background-color: #24c8db;
 }

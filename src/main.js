@@ -38,8 +38,29 @@ async function mygetpos() {
       </tr>
     `;
   });
-
   table.innerHTML = html;
-}
 
+  const tbody = document.getElementsByTagName("tbody")[0];
+  const rows = tbody.getElementsByTagName("tr");
+  for (let i = 0; i < rows.length; i++) {
+    rows[i].addEventListener("click", function() {
+      // Remove "selected" class from all rows
+      for (let j = 0; j < rows.length; j++) {
+        rows[j].classList.remove("selected");
+      }
+      // Add "selected" class to clicked row
+      this.classList.add("selected");
+    });
+  }
+}
 mygetpos();
+
+/*
+const selectedRow = document.querySelector("#AufPos tbody tr.selected");
+if (selectedRow) {
+  // Do something with the selected row
+  console.log(selectedRow);
+} else {
+  console.log("No row is currently selected.");
+}
+*/
