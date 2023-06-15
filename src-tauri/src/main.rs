@@ -1,7 +1,7 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
@@ -13,7 +13,7 @@ fn greet(name: &str) -> String {
 }
 
 #[tauri::command]
-fn get_position () -> String {
+fn get_position() -> String {
     let mut auftrags_positionen: Vec<AuftragsPosition> = Vec::new();
     for i in 1..=10 {
         auftrags_positionen.push(AuftragsPosition {
@@ -24,7 +24,7 @@ fn get_position () -> String {
         });
     }
     let json = serde_json::to_string(&auftrags_positionen).unwrap();
-    format!("{}", json)
+    json
 }
 
 fn main() {
@@ -32,6 +32,14 @@ fn main() {
         .invoke_handler(tauri::generate_handler![greet, get_position])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+struct Auftrag {
+    auftragsnummer: i32,
+    kunde: String,
+    auftragspositionen: Vec<AuftragsPosition>,
+    kopftext: String,
+    besteller: String,
 }
 
 #[derive(Serialize, Deserialize)]
