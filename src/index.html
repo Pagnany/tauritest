@@ -9,23 +9,27 @@
   </head>
 
   <body>
-    <div id="top-div">
+    <div id="topMenu" class="button-container" style="height: 5%;">
+      <button id="btnMenuArtikel" onclick="btn1()" style="width: 100%;">Artikel</button>
+      <button id="btnMenuAuftrag" onclick="btn1()" style="width: 100%;">Auftrag</button>
+    </div>
+    <div id="top-div" style="height: 40%;">
       <div class="row">
         <div class="column" style="width: 25%; float: left;">
-          hallo das ist die eine hälfte
+          1
         </div>
         <div class="column" style="width: 25%; float: left;">
-          und das hier ist die zweite
+          2
         </div>
         <div class="column" style="width: 25%; float: left;">
-          hallo das ist die eine hälfte
+          3
         </div>
         <div class="column" style="width: 25%; float: left;">
-          hallo das ist die eine hälfte
+          4
         </div>
       </div>
     </div>
-    <div id="bottom-div" style="overflow:scroll;">
+    <div id="AufPos-div" style="overflow:scroll; height: 40%;">
       <table id="AufPos">
         <thead>
           <tr>
@@ -36,9 +40,25 @@
           </tr>
         </thead>
         <tbody>
-         
+          <!-- Filled by function -->
         </tbody>
       </table>
+    </div>
+    <div id="bottom-div" style="height: 10%;" >
+      <div class="row">
+        <div class="column" style="width: 25%; float: left;">
+          <button id="btn1" onclick="btn1()" style="width: 100%;">Test 1</button>
+        </div>
+        <div class="column" style="width: 25%; float: left;">
+          <button id="btn2" onclick="btn1()" style="width: 100%;">Test 2</button>
+        </div>
+        <div class="column" style="width: 25%; float: left;">
+          3
+        </div>
+        <div class="column" style="width: 25%; float: left;">
+          4
+        </div>
+      </div>
     </div>
   </body>
 </html>
