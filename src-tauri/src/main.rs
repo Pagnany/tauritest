@@ -1,9 +1,11 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use rusqlite::{params, Connection, Result};
+pub mod auftrag;
+pub mod preis;
 
-mod auftrag;
+use rusqlite::{params, Connection, Result};
+use crate::auftrag::AuftragsPosition;
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
@@ -11,18 +13,18 @@ fn greet(name: &str) -> String {
     if name.is_empty() {
         return "Hello, World!".to_string();
     }
-    format!("Hello, {}! and maiu", name)
+    format!("Hello, {}", name)
 }
 
 #[tauri::command]
 fn get_position() -> String {
-    let mut auftrags_positionen: Vec<auftrag::AuftragsPosition> = Vec::new();
+    let mut auftrags_positionen: Vec<AuftragsPosition> = Vec::new();
     for i in 1..=10 {
-        let auftrags_position = auftrag::AuftragsPosition::new(
+        let auftrags_position = AuftragsPosition::new(
             i,
             "Artikel".to_string(),
             i,
-            auftrag::Preis::new(1.0, 1.0, 1.0),
+            preis::Preis::new(1.0, 1.0, 1.0),
         );
         auftrags_positionen.push(auftrags_position);
     }
